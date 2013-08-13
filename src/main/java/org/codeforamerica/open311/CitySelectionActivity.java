@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 public class CitySelectionActivity extends Activity {
 
-	// UI references.
 	private EditText apiKeyView;
 	private Spinner citySpinner;
 	private Spinner endpointTypeSpinner;

@@ -15,14 +15,22 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name=".CitySelectionActivity" >
+        <activity android:name="org.codeforamerica.open311.CitySelectionActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ServiceListActivity" />
+        <activity android:name="org.codeforamerica.open311.ServiceListActivity" />
+        <activity
+            android:name="org.codeforamerica.open311.ServiceDefinitionActivity"
+            android:label="@string/title_activity_service_definition" >
+        </activity>
+        <activity
+            android:name="org.codeforamerica.open311.ServiceDefinitionActivity"
+            android:label="@string/title_activity_service_definition" >
+        </activity>
     </application>
 
 </manifest>
