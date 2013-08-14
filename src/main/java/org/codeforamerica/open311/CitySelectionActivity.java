@@ -5,6 +5,7 @@ import org.codeforamerica.open311.facade.APIWrapperFactory;
 import org.codeforamerica.open311.facade.City;
 import org.codeforamerica.open311.facade.EndpointType;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
+import org.codeforamerica.open311.internals.caching.AndroidCache;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -101,6 +102,7 @@ public class CitySelectionActivity extends Activity {
 				String apiKey = apiKeyView.getText().toString();
 				return new APIWrapperFactory(cities[cityIndex],
 						types[endpointTypeIndex]).setApiKey(apiKey).withLogs()
+						.setCache(AndroidCache.getInstance(getBaseContext()))
 						.build();
 			} catch (APIWrapperException e) {
 				return null;

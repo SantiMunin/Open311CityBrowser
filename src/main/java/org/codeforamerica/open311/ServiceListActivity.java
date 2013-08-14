@@ -40,21 +40,26 @@ public class ServiceListActivity extends ListActivity {
 				R.string.get_service_definition);
 		menu.add(Menu.NONE, CONTEXT_MENU_GET_SERVICE_REQUESTS, Menu.NONE,
 				R.string.get_service_requests);
-		
+
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-
-		
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+		Intent i;
 		switch (item.getItemId()) {
 		case CONTEXT_MENU_GET_DEFINITION:
-			Intent i = new Intent(this, ServiceDefinitionActivity.class);
-			i.putExtra("service_code", services.get(info.position).getServiceCode());
+			i = new Intent(this, ServiceDefinitionActivity.class);
+			i.putExtra("service_code", services.get(info.position)
+					.getServiceCode());
 			startActivity(i);
 			break;
 		case CONTEXT_MENU_GET_SERVICE_REQUESTS:
+			i = new Intent(this, ServiceRequestListActivity.class);
+			i.putExtra("service_code", services.get(info.position)
+					.getServiceCode());
+			startActivity(i);
 			break;
 		}
 		return false;
@@ -78,7 +83,7 @@ public class ServiceListActivity extends ListActivity {
 			String[] data = new String[result.size()];
 			int i = 0;
 			for (Service serv : result) {
-				data[i++] = serv.getServiceCode();
+				data[i++] = "["+serv.getServiceCode()+"] "+serv.getServiceName();
 			}
 			setListAdapter(new ArrayAdapter<String>(getBaseContext(),
 					android.R.layout.simple_list_item_1, android.R.id.text1,

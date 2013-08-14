@@ -28,8 +28,8 @@
             android:label="@string/title_activity_service_definition" >
         </activity>
         <activity
-            android:name="org.codeforamerica.open311.ServiceDefinitionActivity"
-            android:label="@string/title_activity_service_definition" >
+            android:name="org.codeforamerica.open311.ServiceRequestListActivity"
+            android:label="@string/title_activity_service_request_list" >
         </activity>
     </application>
 

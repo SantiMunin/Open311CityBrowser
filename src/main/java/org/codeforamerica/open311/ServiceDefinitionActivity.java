@@ -5,6 +5,8 @@ import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,13 @@ public class ServiceDefinitionActivity extends Activity {
 			if (result != null) {
 				((TextView) findViewById(R.id.serviceCodeValue)).setText(result
 						.getServiceCode());
+				ListView list = (ListView) findViewById(R.id.attribute_list);
+				String[] values = new String[result.getAttributes().size()];
+				for (int i = 0; i < values.length; i++) {
+					values[i] = result.getAttributes().get(i).getCode();
+				}
+				list.setAdapter(new ArrayAdapter<String>(getBaseContext(),
+						android.R.layout.simple_list_item_1, values));
 			} else {
 				Toast.makeText(getBaseContext(),
 						"This service doesn't have a definition",
