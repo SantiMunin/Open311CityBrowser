@@ -1,5 +1,6 @@
 package org.codeforamerica.open311;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,8 +48,10 @@ public class ServiceRequestListActivity extends ListActivity {
 			String[] data = new String[result.size()];
 			int i = 0;
 			for (ServiceRequest serv : result) {
-				data[i++] = serv.getServiceCode();
+				data[i++] = serv.getServiceRequestId() + " "
+						+ serv.getDescription();
 			}
+			Arrays.sort(data);
 			setListAdapter(new ArrayAdapter<String>(getBaseContext(),
 					android.R.layout.simple_list_item_1, android.R.id.text1,
 					data));

@@ -1,11 +1,14 @@
 package org.codeforamerica.open311;
 
+import java.util.Arrays;
+
 import org.codeforamerica.open311.facade.APIWrapper;
 import org.codeforamerica.open311.facade.APIWrapperFactory;
 import org.codeforamerica.open311.facade.City;
 import org.codeforamerica.open311.facade.EndpointType;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.internals.caching.AndroidCache;
+import org.codeforamerica.open311.util.CityComparator;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +18,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class CitySelectionActivity extends Activity {
@@ -23,8 +25,8 @@ public class CitySelectionActivity extends Activity {
 	private EditText apiKeyView;
 	private Spinner citySpinner;
 	private Spinner endpointTypeSpinner;
-	private View mLoginStatusView;
-	private TextView mLoginStatusMessageView;
+	private View wrapperCreationStatus;
+	private View wrapperForm;
 	private City[] cities = City.values();
 	private int cityIndex = 0;
 	private EndpointType[] types = EndpointType.values();
@@ -40,8 +42,8 @@ public class CitySelectionActivity extends Activity {
 		configureSpinners();
 		apiKeyView = (EditText) findViewById(R.id.apikey_view);
 
-		mLoginStatusView = findViewById(R.id.wrapper_creation_status);
-		mLoginStatusMessageView = (TextView) findViewById(R.id.wrapper_creation_status_message);
+		wrapperCreationStatus = findViewById(R.id.wrapper_creation_status);
+		wrapperForm = findViewById(R.id.wrapper_form);
 
 		findViewById(R.id.sign_in_button).setOnClickListener(
 				new View.OnClickListener() {
@@ -52,8 +54,16 @@ public class CitySelectionActivity extends Activity {
 				});
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		wrapperForm.setVisibility(View.VISIBLE);
+		wrapperCreationStatus.setVisibility(View.GONE);
+	}
+
 	private void configureSpinners() {
 		String[] values = new String[cities.length];
+		Arrays.sort(cities, new CityComparator());
 		for (int i = 0; i < values.length; i++) {
 			values[i] = cities[i].getCityName();
 		}
@@ -91,6 +101,8 @@ public class CitySelectionActivity extends Activity {
 	}
 
 	public void attemptLogin() {
+		wrapperForm.setVisibility(View.GONE);
+		wrapperCreationStatus.setVisibility(View.VISIBLE);
 		new CreateWrapperTask().execute();
 	}
 

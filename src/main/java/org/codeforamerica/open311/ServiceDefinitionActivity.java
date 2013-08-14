@@ -54,7 +54,7 @@ public class ServiceDefinitionActivity extends Activity {
 					values[i] = result.getAttributes().get(i).getCode();
 				}
 				list.setAdapter(new ArrayAdapter<String>(getBaseContext(),
-						android.R.layout.simple_list_item_1, values));
+						R.layout.attribute_text_view, values));
 			} else {
 				Toast.makeText(getBaseContext(),
 						"This service doesn't have a definition",

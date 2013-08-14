@@ -1,10 +1,12 @@
 package org.codeforamerica.open311;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
+import org.codeforamerica.open311.util.ServiceComparator;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -82,8 +84,10 @@ public class ServiceListActivity extends ListActivity {
 			services = result;
 			String[] data = new String[result.size()];
 			int i = 0;
+			Collections.sort(result, new ServiceComparator());
 			for (Service serv : result) {
-				data[i++] = "["+serv.getServiceCode()+"] "+serv.getServiceName();
+				data[i++] = "[" + serv.getServiceCode() + "] "
+						+ serv.getServiceName();
 			}
 			setListAdapter(new ArrayAdapter<String>(getBaseContext(),
 					android.R.layout.simple_list_item_1, android.R.id.text1,
