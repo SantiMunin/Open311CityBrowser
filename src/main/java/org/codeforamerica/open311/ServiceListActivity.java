@@ -72,7 +72,7 @@ public class ServiceListActivity extends ListActivity {
 	}
 
 	private class FetchServiceList extends AsyncTask<Void, Void, List<Service>> {
-
+		@Override
 		protected List<Service> doInBackground(Void... params) {
 			try {
 				return WrapperStore.getInstance().getWrapper().getServiceList();
