@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 public class ServiceListActivity extends ListActivity {
 
@@ -31,6 +32,8 @@ public class ServiceListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_list_activity);
+		((TextView) findViewById(android.R.id.empty))
+				.setText(getString(R.string.loading));
 		registerForContextMenu(getListView());
 		new FetchServiceList().execute();
 	}
@@ -89,6 +92,8 @@ public class ServiceListActivity extends ListActivity {
 				data[i++] = "[" + serv.getServiceCode() + "] "
 						+ serv.getServiceName();
 			}
+			((TextView) findViewById(android.R.id.empty))
+					.setText(getString(R.string.empty));
 			setListAdapter(new ArrayAdapter<String>(getBaseContext(),
 					android.R.layout.simple_list_item_1, android.R.id.text1,
 					data));

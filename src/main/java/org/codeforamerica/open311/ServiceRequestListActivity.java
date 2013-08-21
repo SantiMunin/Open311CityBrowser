@@ -12,6 +12,7 @@ import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 public class ServiceRequestListActivity extends ListActivity {
 
@@ -19,6 +20,8 @@ public class ServiceRequestListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_list_activity);
+		((TextView) findViewById(android.R.id.empty))
+				.setText(getString(R.string.loading));
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			new FetchServiceRequests()
@@ -45,6 +48,8 @@ public class ServiceRequestListActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(List<ServiceRequest> result) {
 			super.onPostExecute(result);
+			((TextView) findViewById(android.R.id.empty))
+					.setText(getString(R.string.empty));
 			String[] data = new String[result.size()];
 			int i = 0;
 			for (ServiceRequest serv : result) {

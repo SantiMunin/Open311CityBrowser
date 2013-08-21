@@ -12,5 +12,8 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_service_request_list">ServiceRequestList</string>
+    <string name="loading">Loading data&#8230;</string>
+    <string name="empty">Empty</string>
+    <string name="service_definition_loading">Loading service definition</string>
 
 </resources>

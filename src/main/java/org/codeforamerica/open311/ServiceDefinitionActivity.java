@@ -17,7 +17,9 @@ public class ServiceDefinitionActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_service_definition);
+		setContentView(R.layout.loading_screen);
+		((TextView) findViewById(R.id.loading_message))
+				.setText(getString(R.string.service_definition_loading));
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			serviceCode = extras.getString("service_code");
@@ -44,7 +46,7 @@ public class ServiceDefinitionActivity extends Activity {
 		protected void onPostExecute(
 				org.codeforamerica.open311.facade.data.ServiceDefinition result) {
 			super.onPostExecute(result);
-
+			setContentView(R.layout.activity_service_definition);
 			if (result != null) {
 				((TextView) findViewById(R.id.serviceCodeValue)).setText(result
 						.getServiceCode());

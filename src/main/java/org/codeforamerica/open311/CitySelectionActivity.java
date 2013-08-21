@@ -25,8 +25,6 @@ public class CitySelectionActivity extends Activity {
 	private EditText apiKeyView;
 	private Spinner citySpinner;
 	private Spinner endpointTypeSpinner;
-	private View wrapperCreationStatus;
-	private View wrapperForm;
 	private City[] cities = City.values();
 	private int cityIndex = 0;
 	private EndpointType[] types = EndpointType.values();
@@ -35,15 +33,17 @@ public class CitySelectionActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		setContentView(R.layout.city_selection);
 
 		citySpinner = (Spinner) findViewById(R.id.city_selection_spinner);
 		endpointTypeSpinner = (Spinner) findViewById(R.id.type_selection_spinner);
 		configureSpinners();
 		apiKeyView = (EditText) findViewById(R.id.apikey_view);
-
-		wrapperCreationStatus = findViewById(R.id.wrapper_creation_status);
-		wrapperForm = findViewById(R.id.wrapper_form);
 
 		findViewById(R.id.sign_in_button).setOnClickListener(
 				new View.OnClickListener() {
@@ -52,13 +52,7 @@ public class CitySelectionActivity extends Activity {
 						attemptLogin();
 					}
 				});
-	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		wrapperForm.setVisibility(View.VISIBLE);
-		wrapperCreationStatus.setVisibility(View.GONE);
 	}
 
 	private void configureSpinners() {
@@ -101,8 +95,7 @@ public class CitySelectionActivity extends Activity {
 	}
 
 	public void attemptLogin() {
-		wrapperForm.setVisibility(View.GONE);
-		wrapperCreationStatus.setVisibility(View.VISIBLE);
+		setContentView(R.layout.loading_screen);
 		new CreateWrapperTask().execute();
 	}
 
